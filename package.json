@@ -5,6 +5,9 @@
   "main": "start.js",
   "author": "Cristian Ianto",
   "license": "ISC",
+  "scripts": {
+    "start": "node ./lib/start.js"
+  },
   "dependencies": {
     "hapi": "^13.0.0",
     "hoek": "^3.0.4"
