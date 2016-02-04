@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "hapi": "^13.0.0",
-    "hoek": "^3.0.4"
+    "hoek": "^3.0.4",
+    "joi": "^7.2.3",
+    "penseur": "^3.2.0"
   },
   "devDependencies": {
     "code": "^2.1.0",
