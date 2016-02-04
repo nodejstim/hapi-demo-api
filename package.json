@@ -1,0 +1,8 @@
+{
+  "name": "hapi-demo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "author": "Cristian Ianto",
+  "license": "ISC"
+}
