@@ -4,5 +4,9 @@
   "description": "",
   "main": "start.js",
   "author": "Cristian Ianto",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^13.0.0",
+    "hoek": "^3.0.4"
+  }
 }
