@@ -85,3 +85,31 @@ describe('POST /message', () => {
     });
 });
 
+
+
+describe('subscription', () => {
+
+    it('logs database changefeed errors', { parallel: false }, (done) => {
+
+        const ext = [{
+            type: 'onPreStart',
+            method: function (server, next) {
+
+                server.app.db.disable('messages', 'changes', { updates: true });
+
+                return next();
+            }
+        }];
+
+        Setup.init({ ext: ext }, (server) => {
+
+            server.on('log', (event, tags) => {
+
+                expect(event.tags).to.deep.equal(['error']);
+                done();
+            });
+        });
+    });
+
+});
+
