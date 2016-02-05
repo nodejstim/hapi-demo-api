@@ -10,6 +10,7 @@
     "test": "lab -a code -t 100 -L"
   },
   "dependencies": {
+    "async": "^1.5.2",
     "hapi": "^13.0.0",
     "hoek": "^3.0.4",
     "joi": "^7.2.3",
