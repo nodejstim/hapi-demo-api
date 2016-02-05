@@ -1,7 +1,5 @@
 'use strict';
 
-// Load modules
-
 const Hapi = require('hapi');
 const Code = require('code');
 const Lab = require('lab');
@@ -9,19 +7,21 @@ const Lab = require('lab');
 const Setup = require('./setup');
 
 
-// Test shortcuts
-
 const lab = exports.lab = Lab.script();
-const expect = Code.expect;
+const describe = lab.experiment;
 const it = lab.test;
+const expect = Code.expect;
 
 
-it('starts server and returns hapi server object', (done) => {
+describe('server', () => {
 
-    Setup.init((server) => {
+    it('starts server and returns hapi server object', (done) => {
 
-        expect(server).to.be.instanceof(Hapi.Server);
+        Setup.init((server) => {
 
-        server.stop(done);
+            expect(server).to.be.instanceof(Hapi.Server);
+
+            server.stop(done);
+        });
     });
 });

@@ -1,84 +1,86 @@
 'use strict';
 
-// Load modules
-
 const Code = require('code');
 const Lab = require('lab');
 
 const Setup = require('../setup');
 
-// Test shortcuts
 
 const lab = exports.lab = Lab.script();
-const expect = Code.expect;
+const describe = lab.experiment;
 const it = lab.test;
+const expect = Code.expect;
 
 
-it('adds a message', (done) => {
 
-    Setup.init((server) => {
+describe('POST /message', () => {
 
-        const options = {
-            method: 'POST',
-            url: '/message',
-            payload: {
-                from: 'A User',
-                msg: 'Hello'
-            }
-        };
+    it('adds a message', (done) => {
 
-        server.inject(options, (res) => {
+        Setup.init((server) => {
 
-            expect(res.statusCode).to.equal(200);
-            expect(res.result).to.exist();
+            const options = {
+                method: 'POST',
+                url: '/message',
+                payload: {
+                    from: 'A User',
+                    msg: 'Hello'
+                }
+            };
 
-            server.stop(done);
+            server.inject(options, (res) => {
+
+                expect(res.statusCode).to.equal(200);
+                expect(res.result).to.exist();
+
+                server.stop(done);
+            });
         });
     });
-});
 
-it('errors on invalid payload', (done) => {
+    it('errors on invalid payload', (done) => {
 
-    Setup.init((server, close) => {
+        Setup.init((server, close) => {
 
-        const options = {
-            method: 'POST',
-            url: '/message',
-            payload: {
-                from: 'A User'
-            }
-        };
+            const options = {
+                method: 'POST',
+                url: '/message',
+                payload: {
+                    from: 'A User'
+                }
+            };
 
-        server.inject(options, (res) => {
+            server.inject(options, (res) => {
 
-            expect(res.statusCode).to.equal(400);
-            expect(res.result.validation).to.exist();
+                expect(res.statusCode).to.equal(400);
+                expect(res.result.validation).to.exist();
 
-            close(done);
+                close(done);
+            });
         });
     });
-});
 
-it('errors on database error', (done) => {
+    it('errors on database error', (done) => {
 
-    Setup.init((server) => {
+        Setup.init((server) => {
 
-        server.app.db.disable('messages', 'insert');
+            server.app.db.disable('messages', 'insert');
 
-        const options = {
-            method: 'POST',
-            url: '/message',
-            payload: {
-                from: 'A User',
-                msg: 'Hello'
-            }
-        };
+            const options = {
+                method: 'POST',
+                url: '/message',
+                payload: {
+                    from: 'A User',
+                    msg: 'Hello'
+                }
+            };
 
-        server.inject(options, (res) => {
+            server.inject(options, (res) => {
 
-            expect(res.statusCode).to.equal(500);
+                expect(res.statusCode).to.equal(500);
 
-            server.stop(done);
+                server.stop(done);
+            });
         });
     });
 });
