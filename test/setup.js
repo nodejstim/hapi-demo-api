@@ -1,17 +1,33 @@
 'use strict';
 
-const API = require('../lib');
+const Hoek = require('hoek');
 
+const API = require('../lib');
 const Config = require('../conf/test');
 
 
-exports.init = function (callback) {
+exports.init = function (options, callback) {
 
-    API.init(Config, (server) => {
+    if (typeof options === 'function') {
+        callback = options;
+    };
 
-        callback(server, (done) => {
+    API.init(Config, (err, server) => {
 
-            server.stop({ timeout: 1 }, done);
+        Hoek.assert(!err, err);
+
+        if (options.ext) {
+            server.ext(options.ext);
+        }
+
+        server.start((err) => {
+
+            Hoek.assert(!err, err);
+
+            callback(server, (done) => {
+
+                server.stop({ timeout: 1 }, done);
+            });
         });
     });
 };
