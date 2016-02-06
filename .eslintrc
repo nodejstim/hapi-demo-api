@@ -1,0 +1,7 @@
+{
+  "extends": "./node_modules/lab/lib/linters/eslint/.eslintrc.js",
+
+  "rules": {
+    "dot-notation": 0
+  }
+}
