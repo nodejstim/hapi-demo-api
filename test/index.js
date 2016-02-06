@@ -17,11 +17,11 @@ describe('server', () => {
 
     it('starts server and returns hapi server object', (done) => {
 
-        Setup.init((server) => {
+        Setup.init((server, close) => {
 
             expect(server).to.be.instanceof(Hapi.Server);
 
-            server.stop(done);
+            close(done);
         });
     });
 });

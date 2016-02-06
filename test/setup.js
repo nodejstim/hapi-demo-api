@@ -10,7 +10,7 @@ exports.init = function (options, callback) {
 
     if (typeof options === 'function') {
         callback = options;
-    };
+    }
 
     API.init(Config, (err, server) => {
 
